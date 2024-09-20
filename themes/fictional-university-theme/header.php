@@ -39,7 +39,13 @@
             <li><a href="#">Programs</a></li>
             <li><a href="#">Events</a></li>
             <li><a href="#">Campuses</a></li>
-            <li><a href="#">Blog</a></li>
+            <li <?php
+                // Check if the current post type is 'post' (i.e., it's a blog post)
+                // If true, add the "current-menu-item" class to the <li> element to highlight the menu item
+                if (get_post_type() == 'post') echo 'class="current-menu-item"' ?>>
+              <!-- Create a link to the 'Blog' page -->
+              <a href="<?php echo site_url('/blog'); ?>">Blog</a>
+            </li>
           </ul>
         </nav>
         <div class="site-header__util">
