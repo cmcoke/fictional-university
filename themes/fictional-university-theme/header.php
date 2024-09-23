@@ -28,6 +28,7 @@
       <div class="site-header__menu group">
         <nav class="main-navigation">
           <ul>
+
             <li <?php
                 // Check if the current page has a slug of 'about-us' or if the parent page ID is 12 (the number 12 refers to the parent page ID 'about us page', which can be found in the WordPress dashboard by viewing the parent page's post ID 'about us page')
                 // If either condition is true, add the "current-menu-item" class to the <li> element 
@@ -36,9 +37,20 @@
               <!-- link to the about us page -->
               <a href="<?php echo site_url('/about-us') ?>">About Us</a>
             </li>
+
             <li><a href="#">Programs</a></li>
-            <li><a href="#">Events</a></li>
+
+            <li <?php
+                // Check if the current post type is 'event' or if the current page is 'past-events'
+                // If true, add the 'current-menu-item' class to highlight this menu item
+                if (get_post_type() == 'event' or is_page('past-events')) echo 'class="current-menu-item"';
+                ?>>
+              <!-- Link to the archive page of the 'event' custom post type -->
+              <a href="<?php echo get_post_type_archive_link('event'); ?>">Events</a>
+            </li>
+
             <li><a href="#">Campuses</a></li>
+
             <li <?php
                 // Check if the current post type is 'post' (i.e., it's a blog post)
                 // If true, add the "current-menu-item" class to the <li> element to highlight the menu item
@@ -46,6 +58,7 @@
               <!-- Create a link to the 'Blog' page -->
               <a href="<?php echo site_url('/blog'); ?>">Blog</a>
             </li>
+
           </ul>
         </nav>
         <div class="site-header__util">

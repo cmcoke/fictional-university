@@ -24,6 +24,10 @@ add_action('wp_enqueue_scripts', 'university_files');
 
 
 
+/**************************************************************************************************************/
+
+
+
 // Function to add theme features
 function university_features()
 {
@@ -33,3 +37,41 @@ function university_features()
 
 // Hook the 'university_features' function to the 'after_setup_theme' action, which runs after the theme is initialized
 add_action('after_setup_theme', 'university_features');
+
+
+
+/**************************************************************************************************************/
+
+/**
+ * 
+ * This code modifies the main query for the 'event' custom post type archive page to display events in ascending order by date. 
+ * It ensures that only future or current events are shown, based on the event_date custom field.
+ * 
+ */
+
+// Function to modify the main WordPress query for the 'event' custom post type archive page
+function university_adjust_queries($query)
+{
+  // Check if not in the admin dashboard, if viewing the 'event' post type archive, and if it's the main query
+  if (!is_admin() and is_post_type_archive('event') and $query->is_main_query()) {
+    $today = date('Ymd'); // Get today's date in 'YYYYMMDD' format
+
+    // Modify the query parameters to order the events by their 'event_date' custom field
+    $query->set('meta_key', 'event_date'); // Specify the custom field to use for ordering
+    $query->set('orderby', 'meta_value_num'); // Order by the numeric value of the custom field
+    $query->set('order', 'ASC'); // Set the order to ascending, so the earliest events appear first
+
+    // Set up a meta query to only include events with a date greater than or equal to today
+    $query->set('meta_query', array(
+      array(
+        'key' => 'event_date', // The custom field that holds the event date
+        'compare' => '>=', // Only include events with dates greater than or equal to today
+        'value' => $today, // Today's date
+        'type' => 'numeric' // Specify that the field is numeric for comparison
+      )
+    ));
+  }
+}
+
+// Attach the 'university_adjust_queries' function to the 'pre_get_posts' action
+add_action('pre_get_posts', 'university_adjust_queries');

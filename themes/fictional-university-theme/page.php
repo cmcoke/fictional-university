@@ -1,6 +1,5 @@
 <?php
 
-// Load the header.php file
 get_header();
 
 // Start the loop to display content of the current page
@@ -97,15 +96,14 @@ while (have_posts()) {
 
     <!-- Display the main content of the current page -->
     <div class="generic-content">
-      <?php the_content(); // Output the content 
-      ?>
+      <?php the_content(); ?>
     </div>
 
   </div>
 
 <?php } // End of the loop
 
-// Load the footer.php file
+
 get_footer();
 
 ?>

@@ -1,4 +1,3 @@
-<!-- Include the WordPress header template -->
 <?php get_header(); ?>
 
 <!-- Page banner section with background image and title -->
@@ -54,5 +53,4 @@
 
 </div>
 
-<!-- Include the WordPress footer template -->
 <?php get_footer(); ?>
