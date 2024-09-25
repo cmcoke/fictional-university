@@ -25,6 +25,24 @@ function university_post_types()
       'singular_name' => 'Event' // Singular label for the post type
     ),
   ));
+
+
+  // Register a custom post type named 'program'
+  register_post_type('program', array(
+    'public' => true, // Make the custom post type publicly accessible
+    'supports' => array('title', 'editor'), // Enable support for the title and editor
+    'rewrite' => array('slug' => 'programs'), // Set a custom URL slug for the post type archive and single pages
+    'has_archive' => true, // Enable an archive page for the custom post type
+    'show_in_rest' => true, // Enable the custom post type to be accessible via the WordPress REST API
+    'menu_icon' => 'dashicons-awards', // Set the icon for the post type in the WordPress admin menu
+    'labels' => array(
+      'name' => 'Programs', // Display name for the post type in plural form
+      'add_new_item' => 'Add New Program', // Label for the "Add New" page title
+      'edit_item' => 'Edit Program', // Label for the "Edit" page title
+      'all_items' => 'All Programs', // Label for the menu item in the admin dashboard
+      'singular_name' => 'Program' // Singular label for the post type
+    ),
+  ));
 }
 
 // Hook the custom post type registration into the 'init' action

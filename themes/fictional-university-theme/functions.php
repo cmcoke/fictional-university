@@ -52,8 +52,17 @@ add_action('after_setup_theme', 'university_features');
 // Function to modify the main WordPress query for the 'event' custom post type archive page
 function university_adjust_queries($query)
 {
+
+  // Check if not in the admin dashboard, if viewing the 'program' custom post type archive, and if it's the main query
+  if (!is_admin() && is_post_type_archive('program') && $query->is_main_query()) {
+    $query->set('orderby', 'title');  // Set the query to order posts by their title
+    $query->set('order', 'ASC'); // Set the order of the posts to ascending (A-Z)
+    $query->set('posts_per_page', -1); // Display all posts without pagination (-1 means no limit)
+  }
+
+
   // Check if not in the admin dashboard, if viewing the 'event' post type archive, and if it's the main query
-  if (!is_admin() and is_post_type_archive('event') and $query->is_main_query()) {
+  if (!is_admin() && is_post_type_archive('event') && $query->is_main_query()) {
     $today = date('Ymd'); // Get today's date in 'YYYYMMDD' format
 
     // Modify the query parameters to order the events by their 'event_date' custom field

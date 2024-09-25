@@ -38,7 +38,14 @@
               <a href="<?php echo site_url('/about-us') ?>">About Us</a>
             </li>
 
-            <li><a href="#">Programs</a></li>
+            <li <?php
+                // Check if the current post type is 'program'
+                // If true, add the 'current-menu-item' class to highlight this menu item
+                if (get_post_type() == 'program') echo 'class="current-menu-item"';
+                ?>>
+
+              <a href="<?php echo  get_post_type_archive_link('program'); ?>">Programs</a>
+            </li>
 
             <li <?php
                 // Check if the current post type is 'event' or if the current page is 'past-events'
