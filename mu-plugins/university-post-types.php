@@ -43,6 +43,22 @@ function university_post_types()
       'singular_name' => 'Program' // Singular label for the post type
     ),
   ));
+
+
+  // Register a custom post type named 'program'
+  register_post_type('professor', array(
+    'public' => true, // Make the custom post type publicly accessible
+    'supports' => array('title', 'editor', 'thumbnail'), // Enable support for the title, editor and post thumbnail (featured image)
+    'show_in_rest' => true, // Enable the custom post type to be accessible via the WordPress REST API
+    'menu_icon' => 'dashicons-welcome-learn-more', // Set the icon for the post type in the WordPress admin menu
+    'labels' => array(
+      'name' => 'Professors', // Display name for the post type in plural form
+      'add_new_item' => 'Add New Professor', // Label for the "Add New" page title
+      'edit_item' => 'Edit Professor', // Label for the "Edit" page title
+      'all_items' => 'All Professors', // Label for the menu item in the admin dashboard
+      'singular_name' => 'Professor' // Singular label for the post type
+    ),
+  ));
 }
 
 // Hook the custom post type registration into the 'init' action

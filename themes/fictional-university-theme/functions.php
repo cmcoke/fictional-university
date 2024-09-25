@@ -33,10 +33,23 @@ function university_features()
 {
   // Enable support for dynamic title tags in the theme
   add_theme_support('title-tag');
+
+  // Enable support for featured images (post thumbnails) in the theme
+  add_theme_support('post-thumbnails');
+
+  // Define a custom image size named 'professorLandscape' with dimensions 400x260 pixels, cropped to fit
+  add_image_size('professorLandscape', 400, 260, true);
+
+  // Define a custom image size named 'professorPortrait' with dimensions 480x650 pixels, cropped to fit
+  add_image_size('professorPortrait', 480, 650, true);
+
+  // Define a custom image size named 'pageBanner' with dimensions 1500x350 pixels, cropped to fit
+  add_image_size('pageBanner', 1500, 350, true);
 }
 
 // Hook the 'university_features' function to the 'after_setup_theme' action, which runs after the theme is initialized
 add_action('after_setup_theme', 'university_features');
+
 
 
 

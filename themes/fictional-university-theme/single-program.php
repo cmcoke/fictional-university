@@ -45,8 +45,55 @@ while (have_posts()) {
       <?php the_content(); ?>
     </div>
 
-    <!-- Section to display upcoming events related to the program -->
     <?php
+
+    /**
+     * The code below creates a custom WordPress query to fetch "professor" posts related to the current program.
+     * The posts are ordered alphabetically by title.
+     */
+
+    // Create a custom WP_Query to fetch related professors
+    $relatedProfessors = new WP_Query(array(
+      'posts_per_page' => -1, // Retrieve all matching posts
+      'post_type' => 'professor', // Specify the custom post type as 'professor'
+      'orderby' => 'title', // Order professors alphabetically by title
+      'order' => 'ASC', // Arrange posts in ascending order
+      // Define a meta query to find professors related to the current program
+      'meta_query' => array(
+        array(
+          'key' => 'related_programs', // Use the 'related_programs' advanced custom field
+          'compare' => 'LIKE', // Search for the current program's ID within the 'related_programs' field
+          'value' => '"' . get_the_ID() . '"' // The current program's ID in double quotes for accurate LIKE comparison
+        )
+      )
+    ));
+
+    // Check if there are any professors that match the query
+    if ($relatedProfessors->have_posts()) {
+
+      echo "<hr class='section-break'>"; // Display a horizontal line as a section break
+      echo '<h2 class="headline headline--medium">' . get_the_title() . ' Professors</h2>'; // Display a heading for related professors
+      echo "<ul class='professor-cards'>"; // Start an unordered list with a custom class
+
+      // Loop through each 'professor' post retrieved by WP_Query
+      while ($relatedProfessors->have_posts()) {
+        $relatedProfessors->the_post(); ?>
+
+        <li class="professor-card__list-item">
+          <!-- Display professor details with a link to their page -->
+          <a class="professor-card" href="<?php the_permalink(); ?>">
+            <img class="professor-card__image" src="<?php the_post_thumbnail_url('professorLandscape'); ?>">
+            <!-- Display professor's image -->
+            <span class="professor-card__name"><?php the_title(); ?></span> <!-- Display professor's name -->
+          </a>
+        </li>
+
+      <?php }
+      echo "</ul>"; // End the unordered list
+    }
+
+    // Reset the global post data to avoid conflicts with other queries
+    wp_reset_postdata();
 
     /**
      * The code below creates a custom WordPress query to fetch upcoming "event" posts associated with the current program.
@@ -138,6 +185,7 @@ while (have_posts()) {
   </div>
 
 <?php }
+
 
 get_footer();
 
