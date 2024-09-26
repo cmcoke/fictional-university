@@ -4,22 +4,10 @@ get_header();
 
 // Start the loop to display content of the current page
 while (have_posts()) {
-  // Set up the post data 
   the_post();
+  pageBanner(); // Display the page banner with the current page's title and subtitle
 ?>
 
-  <!-- Page banner section with background image and title -->
-  <div class="page-banner">
-    <div class="page-banner__bg-image"
-      style="background-image: url(<?php echo get_theme_file_uri('images/ocean.jpg') ?>)">
-    </div>
-    <div class="page-banner__content container container--narrow">
-      <h1 class="page-banner__title"><?php the_title(); ?></h1>
-      <div class="page-banner__intro">
-        <p>DON'T FORGET TO REPLACE ME LATER.</p>
-      </div>
-    </div>
-  </div>
 
   <!-- Main content container -->
   <div class="container container--narrow page-section">
@@ -54,7 +42,7 @@ while (have_posts()) {
 
     // Check if the current page has any child pages
     $testArray = get_pages(array(
-      'child_of' => get_the_ID()
+      'child_of' => get_the_ID() // Retrieve pages that are children of the current page
     ));
 
     // If the page has a parent or child pages 

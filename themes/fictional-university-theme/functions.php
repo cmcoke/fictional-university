@@ -1,5 +1,46 @@
 <?php
 
+// Custom function to display a page banner with customizable title, subtitle, and background image
+function pageBanner($args = NULL)
+{
+
+  // If the 'title' argument is not provided, use the current post/page title
+  if (!isset($args['title'])) {
+    $args['title'] = get_the_title();
+  }
+
+  // If the 'subtitle' argument is not provided, use the value from the advanced custom field 'page_banner_subtitle'
+  if (!isset($args['subtitle'])) {
+    $args['subtitle'] = get_field('page_banner_subtitle');
+  }
+
+  // If the 'photo' argument is not provided, determine the appropriate background image
+  if (!isset($args['photo'])) {
+
+    // Use the advanced custom field 'page_banner_background_image' if it exists and the current page is not an archive or the home page
+    if (get_field('page_banner_background_image') and !is_archive() and !is_home()) {
+      $args['photo'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
+    } else {
+      // Use a default image if no custom field value is available
+      $args['photo'] = get_theme_file_uri('/images/ocean.jpg');
+    }
+  }
+
+?>
+
+  <!-- Page banner section with background image and title -->
+  <div class="page-banner">
+    <div class="page-banner__bg-image" style="background-image: url(<?php echo $args['photo']; ?>)"></div>
+    <div class="page-banner__content container container--narrow">
+      <h1 class="page-banner__title"><?php echo $args['title']; ?></h1>
+      <div class="page-banner__intro">
+        <p><?php echo $args['subtitle']; ?></p>
+      </div>
+    </div>
+  </div>
+
+<?php }
+
 // Function to enqueue theme scripts and styles
 function university_files()
 {

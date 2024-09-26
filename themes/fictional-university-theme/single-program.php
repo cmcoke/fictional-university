@@ -5,27 +5,15 @@ get_header();
 // Start the WordPress loop to iterate through posts
 while (have_posts()) {
 
-  the_post(); ?>
-
-  <!-- Page banner section with background image and title -->
-  <div class="page-banner">
-    <div class="page-banner__bg-image"
-      style="background-image: url(<?php echo get_theme_file_uri('images/ocean.jpg') ?>)">
-    </div>
-    <div class="page-banner__content container container--narrow">
-      <h1 class="page-banner__title"><?php the_title(); ?></h1> <!-- Display the current post/page title -->
-      <div class="page-banner__intro">
-        <p>DON'T FORGET TO REPLACE ME LATER.</p> <!-- Placeholder text for banner subtitle -->
-      </div>
-    </div>
-  </div>
+  the_post();
+  pageBanner(); // Display a custom page banner with the post title and any associated subtitle/background image
+?>
 
   <div class="container container--narrow page-section">
 
     <!-- Meta box showing a link to the program archive page and displaying the program name -->
     <div class="metabox metabox--position-up metabox--with-home-link">
       <p>
-
         <!-- Link back to the program archive page -->
         <a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link('program'); ?>">
           <i class="fa fa-home" aria-hidden="true"></i> All Programs
@@ -35,7 +23,6 @@ while (have_posts()) {
         <span class="metabox__main">
           <?php the_title(); ?>
         </span>
-
       </p>
     </div>
 
@@ -46,7 +33,6 @@ while (have_posts()) {
     </div>
 
     <?php
-
     /**
      * The code below creates a custom WordPress query to fetch "professor" posts related to the current program.
      * The posts are ordered alphabetically by title.
@@ -88,7 +74,7 @@ while (have_posts()) {
           </a>
         </li>
 
-      <?php }
+    <?php }
       echo "</ul>"; // End the unordered list
     }
 
@@ -135,47 +121,9 @@ while (have_posts()) {
 
       // Loop through each 'event' post retrieved by WP_Query
       while ($homepageEvents->have_posts()) {
-        $homepageEvents->the_post(); ?>
-
-        <div class="event-summary">
-          <a class="event-summary__date t-center" href="#">
-            <span class="event-summary__month">
-              <?php
-              // Retrieve the 'event_date' custom field and create a new DateTime object from it
-              $eventDate = new DateTime(get_field('event_date'));
-
-              // Format the date to display the month abbreviation (e.g., Jan, Feb, etc.)
-              echo $eventDate->format('M');
-              ?>
-            </span>
-            <span class="event-summary__day">
-              <?php
-              // Format the date to display the day (e.g., 01, 02, etc.)
-              echo $eventDate->format('d');
-              ?>
-            </span>
-
-          </a>
-          <div class="event-summary__content">
-            <h5 class="event-summary__title headline headline--tiny">
-              <!-- Display the event title with a link to the single post page -->
-              <a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
-            </h5>
-            <p>
-              <?php
-              // Check if the post has an excerpt
-              if (has_excerpt()) {
-                echo get_the_excerpt(); // Display the post's excerpt if available
-              } else {
-                echo wp_trim_words(get_the_content(), 18); // Display a trimmed version of the content if no excerpt is set, limited to 18 words
-              }
-              ?>
-              <a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a> <!-- Link to the full event details -->
-            </p>
-          </div>
-        </div>
-
-    <?php }
+        $homepageEvents->the_post();
+        get_template_part('/template-parts/content-event'); // Include the template part for displaying event content
+      }
     }
 
     // Reset the global post data to avoid conflicts with other queries
@@ -185,7 +133,6 @@ while (have_posts()) {
   </div>
 
 <?php }
-
 
 get_footer();
 
