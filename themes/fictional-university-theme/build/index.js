@@ -12,15 +12,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/style.scss */ "./css/style.scss");
 /* harmony import */ var _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/MobileMenu */ "./src/modules/MobileMenu.js");
 /* harmony import */ var _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/HeroSlider */ "./src/modules/HeroSlider.js");
+/* harmony import */ var _modules_Search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Search */ "./src/modules/Search.js");
 
 
 // Our modules / classes
 
 
 
+
 // Instantiate a new object using our modules/classes
 const mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default"]();
 const heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
+const search = new _modules_Search__WEBPACK_IMPORTED_MODULE_3__["default"]();
 
 /***/ }),
 
@@ -94,6 +97,146 @@ class MobileMenu {
 
 /***/ }),
 
+/***/ "./src/modules/Search.js":
+/*!*******************************!*\
+  !*** ./src/modules/Search.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+ // Import jQuery
+
+// Define the Search class
+class Search {
+  // 1. Describe and create/initiate our object
+  constructor() {
+    // Select the DOM element where search results will be displayed
+    this.resultsDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-overlay__results");
+
+    // Select the button that triggers the search overlay
+    this.openButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".js-search-trigger");
+
+    // Select the button that closes the search overlay
+    this.closeButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close");
+
+    // Select the search overlay element
+    this.searchOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay");
+
+    // Select the search input field
+    this.searchField = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-term");
+
+    // Call the events method to bind event handlers
+    this.events();
+
+    // Initialize a flag to track whether the search overlay is open
+    this.isOverlayOpen = false;
+
+    // Initialize a flag to track whether the loading spinner is visible
+    this.isSpinnerVisible = false;
+
+    // Store the previous value of the search input field
+    this.previousValue;
+
+    // Initialize a timer variable for the typing logic
+    this.typingTimer;
+  }
+
+  // 2. Define events and bind them to the class methods
+  events() {
+    // Bind the click event on the openButton to the openOverlay method
+    this.openButton.on("click", this.openOverlay.bind(this));
+
+    // Bind the click event on the closeButton to the closeOverlay method
+    this.closeButton.on("click", this.closeOverlay.bind(this));
+
+    // Bind the keydown event on the document to the keyPressDispatcher method
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keydown", this.keyPressDispatcher.bind(this));
+
+    // Bind the keyup event on the searchField to the typingLogic method
+    this.searchField.on("keyup", this.typingLogic.bind(this));
+  }
+
+  // 3. Define methods (function, action...)
+  typingLogic() {
+    // Check if the current value of the searchField differs from the previous value
+    if (this.searchField.val() != this.previousValue) {
+      // Clear any existing typing timer
+      clearTimeout(this.typingTimer);
+
+      // If there is a value in the searchField
+      if (this.searchField.val()) {
+        // If the spinner is not already visible, show it
+        if (!this.isSpinnerVisible) {
+          this.resultsDiv.html('<div class="spinner-loader"></div>');
+          this.isSpinnerVisible = true;
+        }
+
+        // Set a timer to trigger the getResults method after 2 seconds
+        this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
+      } else {
+        // If the search field is empty, clear the results and hide the spinner
+        this.resultsDiv.html("");
+        this.isSpinnerVisible = false;
+      }
+    }
+
+    // Store the current value of the searchField as the previous value
+    this.previousValue = this.searchField.val();
+  }
+  getResults() {
+    // Display placeholder search results
+    this.resultsDiv.html("Imagine real search results here...");
+
+    // Hide the spinner
+    this.isSpinnerVisible = false;
+  }
+  keyPressDispatcher(e) {
+    // console.log(e.keyCode);
+
+    // Check for 's' key press (keyCode 83) to open the search overlay
+    if (e.keyCode == 83 && !this.isOverlayOpen && !jquery__WEBPACK_IMPORTED_MODULE_0___default()("input, textarea").is(":focus")) {
+      this.openOverlay();
+    }
+
+    // Check for 'Escape' key press (keyCode 27) to close the search overlay
+    if (e.keyCode == 27 && this.isOverlayOpen) {
+      this.closeOverlay();
+    }
+  }
+  openOverlay() {
+    // Add the class to make the search overlay visible
+    this.searchOverlay.addClass("search-overlay--active");
+
+    // Prevent body scrolling when overlay is open
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
+    console.log("our open method just ran!"); // Log a message to the console
+
+    // Set the overlay state to open
+    this.isOverlayOpen = true;
+  }
+  closeOverlay() {
+    // Remove the class to hide the search overlay
+    this.searchOverlay.removeClass("search-overlay--active");
+
+    // Allow body scrolling when overlay is closed
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
+    console.log("our close method just ran!"); // Log a message to the console
+
+    // Set the overlay state to closed
+    this.isOverlayOpen = false;
+  }
+}
+
+// Export the Search class as the default export
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
+
+/***/ }),
+
 /***/ "./css/style.scss":
 /*!************************!*\
   !*** ./css/style.scss ***!
@@ -103,6 +246,16 @@ class MobileMenu {
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/***/ ((module) => {
+
+module.exports = window["jQuery"];
 
 /***/ }),
 
@@ -4073,6 +4226,18 @@ var Glide = /*#__PURE__*/function (_Core) {
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
