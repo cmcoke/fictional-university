@@ -5,6 +5,9 @@ class Search {
 
   // 1. Describe and create/initiate our object
   constructor() {
+
+    this.addSearchHTML();
+
     // Select the DOM element where search results will be displayed
     this.resultsDiv = $("#search-overlay__results");
 
@@ -34,6 +37,7 @@ class Search {
 
     // Initialize a timer variable for the typing logic
     this.typingTimer;
+
   }
 
   // 2. Define events and bind them to the class methods
@@ -69,7 +73,8 @@ class Search {
         }
 
         // Set a timer to trigger the getResults method after 2 seconds
-        this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
+        this.typingTimer = setTimeout(this.getResults.bind(this), 750);
+
       } else {
         // If the search field is empty, clear the results and hide the spinner
         this.resultsDiv.html("");
@@ -82,11 +87,23 @@ class Search {
   }
 
   getResults() {
-    // Display placeholder search results
-    this.resultsDiv.html("Imagine real search results here...");
 
-    // Hide the spinner
-    this.isSpinnerVisible = false;
+    $.when(
+      $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val()),
+      $.getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val()))
+      .then((posts, pages) => {
+        var combinedResults = posts[0].concat(pages[0]);
+        this.resultsDiv.html(`
+          <h2 class="search-overlay__section-title">General Information</h2>
+          ${combinedResults.length ? `<ul class="link-list min-list">` : `<p>No general information matches that search.</p>`}
+            ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a> ${item.type == 'post' ? `by ${item.authorName}` : ''} </li>`).join('')}  
+          ${combinedResults.length ? `</ul>` : ''} 
+        `);
+        this.isSpinnerVisible = false;
+      }, () => {
+        this.resultsDiv.html('<p>Unexpected error. Please try again</p>');
+      });
+
   }
 
   keyPressDispatcher(e) {
@@ -111,7 +128,9 @@ class Search {
     // Prevent body scrolling when overlay is open
     $("body").addClass("body-no-scroll");
 
-    console.log("our open method just ran!"); // Log a message to the console
+    this.searchField.val('');
+
+    setTimeout(() => this.searchField.focus(), 301);
 
     // Set the overlay state to open
     this.isOverlayOpen = true;
@@ -124,10 +143,32 @@ class Search {
     // Allow body scrolling when overlay is closed
     $("body").removeClass("body-no-scroll");
 
-    console.log("our close method just ran!"); // Log a message to the console
-
     // Set the overlay state to closed
     this.isOverlayOpen = false;
+  }
+
+  // add the search overlay before the closing body tag
+  addSearchHTML() {
+    $('body').append(`
+      
+      <div class="search-overlay">
+
+        <div class="search-overlay__top">
+          <div class="container">
+            <i class="fa fa-search search-overlay__icon" aria-hidden="true"></i>
+            <input type="text" class="search-term" placeholder="What are you looking for?" autocomplete="off"
+              id="search-term">
+            <i class="fa fa-window-close search-overlay__close" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="container">
+          <div id="search-overlay__results"></div>
+        </div>
+
+      </div>
+      
+    `);
   }
 }
 
