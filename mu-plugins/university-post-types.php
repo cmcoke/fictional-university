@@ -30,7 +30,7 @@ function university_post_types()
   // Register a custom post type named 'program'
   register_post_type('program', array(
     'public' => true, // Make the custom post type publicly accessible
-    'supports' => array('title', 'editor'), // Enable support for the title and editor
+    'supports' => array('title'), // Enable support for the title
     'rewrite' => array('slug' => 'programs'), // Set a custom URL slug for the post type archive and single pages
     'has_archive' => true, // Enable an archive page for the custom post type
     'show_in_rest' => true, // Enable the custom post type to be accessible via the WordPress REST API

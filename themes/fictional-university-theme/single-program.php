@@ -9,30 +9,30 @@ while (have_posts()) {
   pageBanner(); // Display a custom page banner with the post title and any associated subtitle/background image
 ?>
 
-  <div class="container container--narrow page-section">
+<div class="container container--narrow page-section">
 
-    <!-- Meta box showing a link to the program archive page and displaying the program name -->
-    <div class="metabox metabox--position-up metabox--with-home-link">
-      <p>
-        <!-- Link back to the program archive page -->
-        <a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link('program'); ?>">
-          <i class="fa fa-home" aria-hidden="true"></i> All Programs
-        </a>
+  <!-- Meta box showing a link to the program archive page and displaying the program name -->
+  <div class="metabox metabox--position-up metabox--with-home-link">
+    <p>
+      <!-- Link back to the program archive page -->
+      <a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link('program'); ?>">
+        <i class="fa fa-home" aria-hidden="true"></i> All Programs
+      </a>
 
-        <!-- Display the current program's name -->
-        <span class="metabox__main">
-          <?php the_title(); ?>
-        </span>
-      </p>
-    </div>
+      <!-- Display the current program's name -->
+      <span class="metabox__main">
+        <?php the_title(); ?>
+      </span>
+    </p>
+  </div>
 
-    <!-- Display the main content of the post/page -->
-    <div class="generic-content">
-      <!-- Display the post/page content -->
-      <?php the_content(); ?>
-    </div>
+  <!-- Display the main content of the post/page -->
+  <div class="generic-content">
+    <!-- Display the post/page content -->
+    <?php the_field('main_body_content'); ?>
+  </div>
 
-    <?php
+  <?php
     /**
      * The code below creates a custom WordPress query to fetch "professor" posts related to the current program.
      * The posts are ordered alphabetically by title.
@@ -65,16 +65,16 @@ while (have_posts()) {
       while ($relatedProfessors->have_posts()) {
         $relatedProfessors->the_post(); ?>
 
-        <li class="professor-card__list-item">
-          <!-- Display professor details with a link to their page -->
-          <a class="professor-card" href="<?php the_permalink(); ?>">
-            <img class="professor-card__image" src="<?php the_post_thumbnail_url('professorLandscape'); ?>">
-            <!-- Display professor's image -->
-            <span class="professor-card__name"><?php the_title(); ?></span> <!-- Display professor's name -->
-          </a>
-        </li>
+  <li class="professor-card__list-item">
+    <!-- Display professor details with a link to their page -->
+    <a class="professor-card" href="<?php the_permalink(); ?>">
+      <img class="professor-card__image" src="<?php the_post_thumbnail_url('professorLandscape'); ?>">
+      <!-- Display professor's image -->
+      <span class="professor-card__name"><?php the_title(); ?></span> <!-- Display professor's name -->
+    </a>
+  </li>
 
-      <?php }
+  <?php }
       echo "</ul>"; // End the unordered list
     }
 
@@ -138,16 +138,16 @@ while (have_posts()) {
       echo '<h2 class="headline headline--medium">' . get_the_title() .  ' is Available At Theses Campuses:</h2>';
       echo '<ul class="min-list link-list">';
       foreach ($relatedCampuses as $campus) { ?>
-        <li>
-          <a href="<?php echo get_the_permalink($campus); ?>"><?php echo get_the_title($campus); ?></a>
-        </li>
-    <?php }
+  <li>
+    <a href="<?php echo get_the_permalink($campus); ?>"><?php echo get_the_title($campus); ?></a>
+  </li>
+  <?php }
       echo '</ul>';
     }
 
     ?>
 
-  </div>
+</div>
 
 <?php }
 
