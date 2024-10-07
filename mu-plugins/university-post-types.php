@@ -11,6 +11,8 @@ function university_post_types()
 {
   // Register a custom post type named 'event'
   register_post_type('event', array(
+    'capability_type' => 'event', // Custom capability for managing 'event' posts
+    'map_meta_cap' => true, // Map meta capabilities (such as edit_post, delete_post) to custom capabilities
     'public' => true, // Make the custom post type publicly accessible
     'supports' => array('title', 'editor', 'excerpt'), // Enable support for the title, editor, and excerpt fields
     'rewrite' => array('slug' => 'events'), // Set a custom URL slug for the post type archive and single pages
@@ -45,10 +47,10 @@ function university_post_types()
   ));
 
 
-  // Register a custom post type named 'program'
+  // Register a custom post type named 'professor'
   register_post_type('professor', array(
     'public' => true, // Make the custom post type publicly accessible
-    'supports' => array('title', 'editor', 'thumbnail'), // Enable support for the title, editor and post thumbnail (featured image)
+    'supports' => array('title', 'editor', 'thumbnail'), // Enable support for the title, editor, and post thumbnail (featured image)
     'show_in_rest' => true, // Enable the custom post type to be accessible via the WordPress REST API
     'menu_icon' => 'dashicons-welcome-learn-more', // Set the icon for the post type in the WordPress admin menu
     'labels' => array(
@@ -63,6 +65,8 @@ function university_post_types()
 
   // Register a custom post type named 'campus'
   register_post_type('campus', array(
+    'capability_type' => 'campus', // Custom capability for managing 'campus' posts
+    'map_meta_cap' => true, // Map meta capabilities to custom capabilities
     'public' => true, // Make the custom post type publicly accessible
     'supports' => array('title', 'editor', 'excerpt'), // Enable support for the title, editor, and excerpt fields
     'rewrite' => array('slug' => 'campuses'), // Set a custom URL slug for the post type archive and single pages
