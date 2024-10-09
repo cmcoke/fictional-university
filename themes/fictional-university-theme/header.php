@@ -81,23 +81,28 @@
           // Check if the user is logged in
           if (is_user_logged_in()) { ?>
 
-            <!-- Display a "Log Out" button with the current user's avatar if the user is logged in -->
-            <a href="<?php echo wp_logout_url(); ?>" class="btn btn--small btn--dark-orange float-left btn--with-photo">
+          <!-- Display the "My Notes" button -->
+          <a href="<?php echo esc_url(site_url('/my-notes')); ?>"
+            class="btn btn--small btn--orange float-left push-right">My Notes</a>
 
-              <!-- Display the avatar of the current user (with a size of 60px) -->
-              <span class="site-header__avatar"><?php echo get_avatar(get_current_user_id(), 60); ?></span>
+          <!-- Display a "Log Out" button with the current user's avatar if the user is logged in -->
+          <a href="<?php echo wp_logout_url(); ?>" class="btn btn--small btn--dark-orange float-left btn--with-photo">
 
-              <!-- Display the "Log Out" text inside the button -->
-              <span class="btn__text">Log Out</span>
-            </a>
+            <!-- Display the avatar of the current user (with a size of 60px) -->
+            <span class="site-header__avatar"><?php echo get_avatar(get_current_user_id(), 60); ?></span>
+
+            <!-- Display the "Log Out" button -->
+            <span class="btn__text">Log Out</span>
+
+          </a>
 
           <?php } else { ?>
 
-            <!-- If the user is not logged in, display a "Login" button that links to the login page -->
-            <a href="<?php echo wp_login_url(); ?>" class="btn btn--small btn--orange float-left push-right">Login</a>
+          <!-- If the user is not logged in, display a "Login" button that links to the login page -->
+          <a href="<?php echo wp_login_url(); ?>" class="btn btn--small btn--orange float-left push-right">Login</a>
 
-            <!-- Display a "Sign Up" button that links to the registration page -->
-            <a href="<?php echo wp_registration_url(); ?>" class="btn btn--small btn--dark-orange float-left">Sign Up</a>
+          <!-- Display a "Sign Up" button that links to the registration page -->
+          <a href="<?php echo wp_registration_url(); ?>" class="btn btn--small btn--dark-orange float-left">Sign Up</a>
 
           <?php } // End of the if-else statement 
           ?>

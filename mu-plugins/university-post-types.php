@@ -81,6 +81,27 @@ function university_post_types()
       'singular_name' => 'Campus' // Singular label for the post type
     ),
   ));
+
+
+  // Register a custom post type named 'note'
+  register_post_type('note', array(
+    'public' => false, // Set 'public' to false to keep notes from appearing on the front end of the site or in search results
+    'show_ui' => true, // Show the custom post type in the WordPress admin dashboard
+    'capability_type' => 'note', // Use a custom capability type for 'note' to handle permissions for creating, editing, and deleting notes
+    'map_meta_cap' => true, // Enable WordPress’s built-in meta capabilities to manage permissions more easily
+    'supports' => array('title', 'editor'), // Limit the supported fields to 'title' and 'editor' (i.e., no featured images or other meta fields)
+    'show_in_rest' => true, // Expose this custom post type to the REST API for integration with front-end requests
+    'menu_icon' => 'dashicons-welcome-write-blog', // Set a custom icon for the post type in the admin menu
+
+    // Customize the labels displayed in the WordPress admin dashboard
+    'labels' => array(
+      'name' => 'Notes', // The plural name for the post type
+      'add_new_item' => 'Add New Note', // The label for adding a new note
+      'edit_item' => 'Edit Note', // The label for editing a note
+      'all_items' => 'All Notes', // The label for viewing all notes in the admin dashboard
+      'singular_name' => 'Note' // The singular form of the post type name
+    ),
+  ));
 }
 
 // Hook the custom post type registration into the 'init' action
