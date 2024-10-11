@@ -73,6 +73,7 @@ class MyNotes {
    * @param {Event} e - The event object triggered by a user action.
    */
   editNote(e) {
+
     const thisNote = this.findNearestParentLi(e.target);
 
     // If the note is in "editable" state, make it read-only
@@ -82,6 +83,7 @@ class MyNotes {
       // Otherwise, make the note editable
       this.makeNoteEditable(thisNote);
     }
+
   }
 
   /**
@@ -125,9 +127,11 @@ class MyNotes {
 
       // Animate the removal of the note element
       thisNote.style.height = `${thisNote.offsetHeight}px`;
+
       setTimeout(function () {
         thisNote.classList.add("fade-out");
       }, 20);
+
       setTimeout(function () {
         thisNote.remove();
       }, 401);
@@ -136,6 +140,7 @@ class MyNotes {
       if (response.data.userNoteCount < 5) {
         document.querySelector(".note-limit-message").classList.remove("active");
       }
+
     } catch (e) {
       console.log("Sorry"); // Handle any errors
     }
@@ -155,9 +160,12 @@ class MyNotes {
     };
 
     try {
+
       // Send POST request to update the note using the REST API
       const response = await axios.post(universityData.root_url + "/wp-json/wp/v2/note/" + thisNote.getAttribute("data-id"), ourUpdatedPost);
+
       this.makeNoteReadOnly(thisNote); // Make the note read-only after updating
+
     } catch (e) {
       console.log("Sorry"); // Handle any errors
     }
@@ -197,6 +205,7 @@ class MyNotes {
         // notice in the above HTML for the new <li> I gave it a class of fade-in-calc which will make it invisible temporarily so we can count its natural height
 
         let finalHeight; // browser needs a specific height to transition to, you can't transition to 'auto' height
+
         let newlyCreated = document.querySelector("#my-notes li");
 
         // give the browser 30 milliseconds to have the invisible element added to the DOM before moving on
@@ -215,6 +224,7 @@ class MyNotes {
         setTimeout(function () {
           newlyCreated.style.removeProperty("height");
         }, 450);
+
       } else {
         document.querySelector(".note-limit-message").classList.add("active"); // Display message if note limit reached
       }

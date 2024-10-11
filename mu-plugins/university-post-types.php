@@ -102,6 +102,24 @@ function university_post_types()
       'singular_name' => 'Note' // The singular form of the post type name
     ),
   ));
+
+
+  // Register a custom post type named 'like'
+  register_post_type('like', array(
+    'public' => false, // Set 'public' to false to keep notes from appearing on the front end of the site or in search results
+    'show_ui' => true, // Show the custom post type in the WordPress admin dashboard
+    'supports' => array('title'), // Limit the supported fields to 'title'
+    'menu_icon' => 'dashicons-heart', // Set a custom icon for the post type in the admin menu
+
+    // Customize the labels displayed in the WordPress admin dashboard
+    'labels' => array(
+      'name' => 'Likes', // The plural name for the post type
+      'add_new_item' => 'Add New Like', // The label for adding a new like
+      'edit_item' => 'Edit Like', // The label for editing a like
+      'all_items' => 'All Likes', // The label for viewing all Likes in the admin dashboard
+      'singular_name' => 'Like' // The singular form of the post type name
+    ),
+  ));
 }
 
 // Hook the custom post type registration into the 'init' action

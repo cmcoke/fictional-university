@@ -1,8 +1,11 @@
 <?php
 
+// Require the 'like-route.php' file from the 'inc' directory within the theme's file path
+require get_theme_file_path('/inc/like-route.php');
+
+
 // Require the 'search-route.php' file from the 'inc' directory within the theme's file path
 require get_theme_file_path('/inc/search-route.php');
-
 
 
 /**************************************************************************************************************/
