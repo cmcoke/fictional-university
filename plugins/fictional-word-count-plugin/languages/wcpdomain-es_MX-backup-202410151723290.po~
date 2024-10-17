@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Fictional Word Count\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-15 17:22+0000\n"
+"PO-Revision-Date: 2024-10-15 17:23+0000\n"
+"Last-Translator: Charles\n"
+"Language-Team: Spanish (Mexico)\n"
+"Language: es_MX\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.11; wp-6.6.2\n"
+"X-Domain: wcpdomain"
+
+#. Author of the plugin
+msgid "Charles-Michael"
+msgstr ""
+
+#. Name of the plugin
+msgid "Fictional Word Count"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.charlescoke.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"This plugin adds a Word Count and Read Time feature to WordPress posts. It "
+"allows users to display post statistics such as word count, character count, "
+"and estimated reading time. These settings can be customized through the "
+"WordPress admin dashboard. The plugin also supports internationalization "
+"(i18n) for translating text into different languages."
+msgstr ""
+
+#: fictional-wordcount-plugin.php:141
+msgid "This post has"
+msgstr "Esta publicación tiene"
+
+#: fictional-wordcount-plugin.php:37
+msgid "Word Count"
+msgstr ""
+
+#: fictional-wordcount-plugin.php:141
+msgid "words"
+msgstr ""
