@@ -385,38 +385,55 @@ function makeNotePrivate($data, $postarr)
 /**************************************************************************************************************/
 
 /**
- * Class to register JavaScript-based Gutenberg blocks
+ * Class JSXBlock - Registers a custom block type in WordPress using JavaScript and PHP.
  */
-
 class JSXBlock
 {
 
-  // Constructor to initialize the block with a specific name
-  function __construct($name)
+  // Constructor method that sets up the block properties and hooks into WordPress
+  function __construct($name, $renderCallback = null, $data = null)
   {
-    $this->name = $name; // Sets the block name for use in other methods
-    add_action('init', [$this, 'onInit']); // Hooks the onInit method to WordPress initialization
+    $this->name = $name; // Block name (used as the script and block handle)
+    $this->data = $data; // Optional data to be localized for the script
+    $this->renderCallback = $renderCallback; // Optional callback function for rendering the block
+    add_action('init', [$this, 'onInit']); // Hook into the 'init' action to initialize the block
   }
 
-  // Function to register the block's JavaScript file and define block properties
+  // Callback function for rendering block content in PHP (server-side rendering)
+  function ourRenderCallback($attributes, $content)
+  {
+    ob_start(); // Start output buffering
+    require get_theme_file_path("/our-blocks/{$this->name}.php"); // Load the PHP file corresponding to the block
+    return ob_get_clean(); // Return the buffered output (HTML)
+  }
+
+  // Method to register the block and enqueue the associated JavaScript
   function onInit()
   {
+    // Register the JavaScript file for the block, with dependencies on WordPress block and editor scripts
+    wp_register_script($this->name, get_stylesheet_directory_uri() . "/build/{$this->name}.js", array('wp-blocks', 'wp-editor'));
 
-    // Registers the JavaScript file for the block, setting dependencies for Gutenberg editor scripts
-    wp_register_script(
-      $this->name, // Handle for the script
-      get_stylesheet_directory_uri() . "/build/{$this->name}.js", // Path to the script file
-      array('wp-blocks', 'wp-editor') // Dependencies: Gutenberg blocks and editor scripts
+    // Localize script with data if provided (e.g., to pass PHP data to JavaScript)
+    if ($this->data) {
+      wp_localize_script($this->name, $this->name, $this->data);
+    }
+
+    // Arguments for block registration, including editor script handle and optional render callback
+    $ourArgs = array(
+      'editor_script' => $this->name
     );
 
-    // Registers the block with the specified name and links the editor script
-    register_block_type("ourblocktheme/{$this->name}", array(
-      'editor_script' => $this->name // Specifies the JavaScript file registered earlier as the editor script
-    ));
+    // If a render callback is provided, add it to the block registration arguments
+    if ($this->renderCallback) {
+      $ourArgs['render_callback'] = [$this, 'ourRenderCallback'];
+    }
+
+    // Register the block type with WordPress, using the name and arguments
+    register_block_type("ourblocktheme/{$this->name}", $ourArgs);
   }
 }
 
-// Initializes new blocks by creating instances of the JSXBlock class with specific block names
-new JSXBlock('banner'); // Registers a block named 'banner'
-new JSXBlock('genericheading'); // Registers a block named 'genericheading'
-new JSXBlock('genericbutton'); // Registers a block named 'genericbutton'
+// Instantiate new blocks using the JSXBlock class, each with its name, optional render callback, and data
+new JSXBlock('banner', true, ['fallbackimage' => get_theme_file_uri('/images/library-hero.jpg')]); // Banner block with fallback image
+new JSXBlock('genericheading'); // Generic heading block
+new JSXBlock('genericbutton'); // Generic button block

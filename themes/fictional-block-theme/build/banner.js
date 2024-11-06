@@ -2,16 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./images/library-hero.jpg":
-/*!*********************************!*\
-  !*** ./images/library-hero.jpg ***!
-  \*********************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports = __webpack_require__.p + "images/library-hero.5a109598.jpg";
-
-/***/ }),
-
 /***/ "react/jsx-runtime":
 /*!**********************************!*\
   !*** external "ReactJSXRuntime" ***!
@@ -19,6 +9,16 @@ module.exports = __webpack_require__.p + "images/library-hero.5a109598.jpg";
 /***/ ((module) => {
 
 module.exports = window["ReactJSXRuntime"];
+
+/***/ }),
+
+/***/ "@wordpress/api-fetch":
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["apiFetch"];
 
 /***/ }),
 
@@ -39,6 +39,26 @@ module.exports = window["wp"]["blockEditor"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["element"];
 
 /***/ })
 
@@ -93,18 +113,6 @@ module.exports = window["wp"]["blocks"];
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -121,29 +129,6 @@ module.exports = window["wp"]["blocks"];
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	(() => {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT')
-/******/ 				scriptUrl = document.currentScript.src;
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) {
-/******/ 					var i = scripts.length - 1;
-/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
-/******/ 				}
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl;
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
@@ -152,82 +137,128 @@ var __webpack_exports__ = {};
   !*** ./our-blocks/banner.js ***!
   \******************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _images_library_hero_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../images/library-hero.jpg */ "./images/library-hero.jpg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
 /**
- * Register a custom "Banner" block for WordPress with editable and save components
+ * WordPress custom block for creating a banner with an optional background image.
  */
 
- // Imports InnerBlocks for nesting blocks
- // Imports registerBlockType for block registration
- // Imports a background image for the banner
+ // Allows fetching data from WordPress REST API
+ // WordPress UI components for the editor
+ // Editor components for block creation
+ // Method to register a custom block
+ // React hook for handling side effects
 
-// Registers the "Banner" block with its title, edit component, and save component
+// Register the "banner" block type with specific attributes and components
 
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)("ourblocktheme/banner", {
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.registerBlockType)("ourblocktheme/banner", {
   title: "Banner",
-  // Title of the block shown in the editor
+  // Block title displayed in the editor
+  supports: {
+    align: ["full"] // Allows full-width alignment support in the editor
+  },
+  attributes: {
+    align: {
+      type: "string",
+      default: "full"
+    },
+    // Alignment attribute, defaulting to full-width
+    imgID: {
+      type: "number"
+    },
+    // Stores the ID of the selected image
+    imgURL: {
+      type: "string",
+      default: banner.fallbackimage
+    } // Stores the URL of the selected image or a fallback image
+  },
   edit: EditComponent,
-  // Function defining the block's editing interface
-  save: SaveComponent // Function defining the block's saved output
+  // Component for block editor interface
+  save: SaveComponent // Component for block frontend rendering
 });
 
-// Function defining the editor interface for the Banner block
-function EditComponent() {
-  // Defines reusable JSX structure for later use if needed
-  const useMeLater = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-      className: "headline headline--large",
-      children: "Welcome!"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-      className: "headline headline--medium",
-      children: "We think you\u2019ll like it here."
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
-      className: "headline headline--small",
-      children: ["Why don\u2019t you check out the ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
-        children: "major"
-      }), " you\u2019re interested in?"]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
-      href: "#",
-      className: "btn btn--large btn--blue",
-      children: "Find Your Major"
-    })]
-  });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "page-banner",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "page-banner__bg-image",
-      style: {
-        backgroundImage: `url(${_images_library_hero_jpg__WEBPACK_IMPORTED_MODULE_2__})`
+// Component rendering the block editor interface
+function EditComponent(props) {
+  // useEffect hook to fetch image URL whenever the image ID is set or updated
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
+    if (props.attributes.imgID) {
+      // Only run if an image ID is present
+      async function go() {
+        const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+          path: `/wp/v2/media/${props.attributes.imgID}`,
+          // Fetches media details based on the image ID
+          method: "GET"
+        });
+        // Update imgURL attribute with the image URL from the media details
+        props.setAttributes({
+          imgURL: response.media_details.sizes.pageBanner.source_url
+        });
       }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "page-banner__content container t-center c-white",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.InnerBlocks, {
-        allowedBlocks: ["ourblocktheme/genericheading", "ourblocktheme/genericbutton"]
+      go(); // Call the async function to fetch image data
+    }
+  }, [props.attributes.imgID] // Effect dependency array, triggers when imgID changes
+  );
+
+  // Handler for selecting an image, setting the image ID attribute
+  function onFileSelect(x) {
+    props.setAttributes({
+      imgID: x.id
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+        title: "Background",
+        initialOpen: true,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUploadCheck, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUpload, {
+              onSelect: onFileSelect // Sets imgID on image selection
+              ,
+              value: props.attributes.imgID // Current image ID
+              ,
+              render: ({
+                open
+              }) => {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                  onClick: open,
+                  children: "Choose Image"
+                }); // Opens media library on click
+              }
+            })
+          })
+        })
       })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "page-banner",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "page-banner__bg-image",
+        style: {
+          backgroundImage: `url('${props.attributes.imgURL}')`
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "page-banner__content container t-center c-white",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
+          allowedBlocks: ["ourblocktheme/genericheading", "ourblocktheme/genericbutton"]
+        }), " "]
+      })]
     })]
   });
 }
 
-// Function defining the saved output for the Banner block
+// Save function defining frontend HTML output for the block
 function SaveComponent() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "page-banner",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "page-banner__bg-image",
-      style: {
-        backgroundImage: "url('/wp-content/themes/fictional-block-theme/images/library-hero.jpg')"
-      }
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "page-banner__content container t-center c-white",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.InnerBlocks.Content, {})
-    })]
-  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, {}); // Saves inner blocks content for frontend display
 }
 })();
 
