@@ -208,7 +208,7 @@ function EditComponent() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "page-banner__content container t-center c-white",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.InnerBlocks, {
-        allowedBlocks: ["ourblocktheme/genericheading"]
+        allowedBlocks: ["ourblocktheme/genericheading", "ourblocktheme/genericbutton"]
       })
     })]
   });

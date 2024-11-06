@@ -419,3 +419,4 @@ class JSXBlock
 // Initializes new blocks by creating instances of the JSXBlock class with specific block names
 new JSXBlock('banner'); // Registers a block named 'banner'
 new JSXBlock('genericheading'); // Registers a block named 'genericheading'
+new JSXBlock('genericbutton'); // Registers a block named 'genericbutton'

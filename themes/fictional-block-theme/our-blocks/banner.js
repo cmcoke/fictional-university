@@ -36,7 +36,7 @@ function EditComponent() {
       <div className="page-banner__bg-image" style={{ backgroundImage: `url(${bgImage})` }}></div>
       <div className="page-banner__content container t-center c-white">
         {/* InnerBlocks component to allow other blocks to be added inside the banner */}
-        <InnerBlocks allowedBlocks={["ourblocktheme/genericheading"]} />
+        <InnerBlocks allowedBlocks={["ourblocktheme/genericheading", "ourblocktheme/genericbutton"]} />
       </div>
     </div>
   );
