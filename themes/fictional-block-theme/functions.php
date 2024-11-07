@@ -440,6 +440,12 @@ new JSXBlock('genericbutton'); // Generic button block
 new JSXBlock('slideshow', true); // Generic slideshow block
 new JSXBlock('slide', true); // Generic slide block
 
+// Instantiate a new 'slide' block using the JSXBlock class. 
+// The second argument 'true' indicates that the block is enabled and has a render callback, 
+// while the third argument passes additional data to the block (in this case, the 'themeimagepath' which 
+// points to the theme's '/images/' directory using the `get_theme_file_uri` function).
+new JSXBlock('slide', true, ['themeimagepath' => get_theme_file_uri('/images/')]);
+
 
 
 /**************************************************************************************************************/

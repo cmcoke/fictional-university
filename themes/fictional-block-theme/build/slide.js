@@ -150,82 +150,105 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
 /**
- * Custom block for a slide component in WordPress.
+ * Registers a custom "Slide" block type in WordPress with the following features:
+ * - The block supports full-width alignment and includes attributes for theme image, alignment, image ID, and image URL.
+ * - The `EditComponent` manages block content in the editor, allowing users to select an image for the slide background and place nested blocks (like heading or button).
+ * - It fetches the image URL when the `imgID` is selected and updates the image URL accordingly using the WordPress REST API.
+ * - The `SaveComponent` outputs the content of any inner blocks when the block is saved.
+ * - The `InspectorControls` panel enables the user to upload a background image from the media library.
  */
 
+// Import necessary dependencies and components from WordPress packages
+ // Import apiFetch to make API requests
+ // Import UI components for the block settings panel
+ // Import components for block editor and media upload functionality
+ // Import registerBlockType to register custom block types
+ // Import useEffect for handling side effects in the component
 
-
-
-
-
-
-// Registering the block type with block settings
+// Register a new custom block type 'slide'
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.registerBlockType)("ourblocktheme/slide", {
   title: "Slide",
-  // Block title in the editor
+  // Set the block title in the block editor
   supports: {
-    align: ["full"] // Allows block to be aligned full-width
+    align: ["full"] // Support full-width alignment for the block
   },
   attributes: {
+    themeimage: {
+      type: "string"
+    },
+    // Attribute for storing the theme image (string)
     align: {
       type: "string",
       default: "full"
     },
-    // Alignment attribute with default full-width
+    // Attribute for alignment, default is full width
     imgID: {
       type: "number"
     },
-    // Image ID for selected media
+    // Attribute to store the image ID
     imgURL: {
       type: "string",
       default: banner.fallbackimage
-    } // Image URL with a default fallback image
+    } // Attribute for storing the image URL, with a fallback image
   },
   edit: EditComponent,
-  // The editor component for this block
-  save: SaveComponent // The frontend render function for this block
+  // Edit component for rendering the block in the editor
+  save: SaveComponent // Save component for rendering the block content on the front end
 });
 
-// The Edit component that renders the block interface in the editor
+// Edit component for the slide block
 function EditComponent(props) {
-  // useEffect to fetch image URL if an image ID is present
+  // Effect hook to update the imgURL when themeimage is set
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
+    if (props.attributes.themeimage) {
+      // Set imgURL using the themeimage path and the selected themeimage
+      props.setAttributes({
+        imgURL: `${slide.themeimagepath}${props.attributes.themeimage}`
+      });
+    }
+  }, []); // The empty dependency array ensures this effect runs only once, on mount
+
+  // Effect hook to update imgURL based on the imgID
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     if (props.attributes.imgID) {
       async function go() {
-        // Fetching media details for selected image ID
+        // Fetch the media details using the WordPress REST API
         const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
           path: `/wp/v2/media/${props.attributes.imgID}`,
-          // REST API request to get media
           method: "GET"
         });
-        // Setting imgURL attribute with the selected image URL
+        // Set the image URL using the fetched media details
         props.setAttributes({
+          themeimage: "",
           imgURL: response.media_details.sizes.pageBanner.source_url
         });
       }
-      go();
+      go(); // Call the async function to fetch image data
     }
-  }, [props.attributes.imgID] // Dependency on imgID attribute
+  }, [props.attributes.imgID] // Dependency array to re-run this effect when imgID changes
   );
 
-  // Updates imgID attribute when a file is selected
+  // Handler for when a file is selected from the media library
   function onFileSelect(x) {
+    // Set the imgID attribute with the selected image's ID
     props.setAttributes({
       imgID: x.id
     });
   }
+
+  // Block editor UI rendering
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
         title: "Background",
         initialOpen: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, {
+        children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUploadCheck, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUpload, {
-              onSelect: onFileSelect // Triggers onFileSelect when an image is chosen
+              onSelect: onFileSelect // Handler for when a file is selected
               ,
-              value: props.attributes.imgID // Current image ID attribute
+              value: props.attributes.imgID // Current selected image ID
               ,
               render: ({
                 open
@@ -233,11 +256,11 @@ function EditComponent(props) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
                   onClick: open,
                   children: "Choose Image"
-                }); // Button to open media library
+                }); // Render a button to open the media library
               }
             })
           })
-        })
+        })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "hero-slider__slide",
@@ -257,9 +280,9 @@ function EditComponent(props) {
   });
 }
 
-// The Save component that defines the front-end output of the block
+// Save component for rendering the content on the front end (server-side rendering)
 function SaveComponent() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, {}); // Renders nested blocks in the saved output
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks.Content, {}); // Output the inner blocks content when the block is saved
 }
 })();
 
