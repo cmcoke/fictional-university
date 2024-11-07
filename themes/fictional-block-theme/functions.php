@@ -437,3 +437,58 @@ class JSXBlock
 new JSXBlock('banner', true, ['fallbackimage' => get_theme_file_uri('/images/library-hero.jpg')]); // Banner block with fallback image
 new JSXBlock('genericheading'); // Generic heading block
 new JSXBlock('genericbutton'); // Generic button block
+
+
+
+/**************************************************************************************************************/
+
+/**
+ * Class for registering a custom placeholder block in WordPress.
+ */
+class PlaceholderBlock
+{
+  /**
+   * Constructor to initialize the block with a specified name.
+   *
+   * @param string $name The name of the block.
+   */
+  function __construct($name)
+  {
+    $this->name = $name; // Store the block name
+    add_action('init', [$this, 'onInit']); // Hook into WordPress init action to register the block
+  }
+
+  /**
+   * Callback function for rendering the block on the frontend.
+   *
+   * @param array $attributes Block attributes.
+   * @param string $content Inner content of the block.
+   * @return string HTML output of the block.
+   */
+  function ourRenderCallback($attributes, $content)
+  {
+    ob_start(); // Start output buffering
+    require get_theme_file_path("/our-blocks/{$this->name}.php"); // Include the block's PHP template file from the theme directory
+    return ob_get_clean(); // Return the buffered output as a string
+  }
+
+  /**
+   * Registers the block with WordPress, including JavaScript and render callback.
+   */
+  function onInit()
+  {
+    // Register the block's JavaScript file, defining dependencies on core block and editor scripts
+    wp_register_script($this->name, get_stylesheet_directory_uri() . "/our-blocks/{$this->name}.js", array('wp-blocks', 'wp-editor'));
+
+    // Register the block type with specified editor script and server-side render callback
+    register_block_type("ourblocktheme/{$this->name}", array(
+      'editor_script' => $this->name, // Reference to the registered JavaScript
+      'render_callback' => [$this, 'ourRenderCallback'] // Server-side render callback function
+    ));
+  }
+}
+
+
+new PlaceholderBlock("eventsandblogs"); // Instantiate the PlaceholderBlock class to register the "eventsandblogs" block
+new PlaceholderBlock("header"); // Instantiate the PlaceholderBlock class to register the "header" block
+new PlaceholderBlock("footer"); // Instantiate the PlaceholderBlock class to register the "footer" block
