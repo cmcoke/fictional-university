@@ -437,6 +437,8 @@ class JSXBlock
 new JSXBlock('banner', true, ['fallbackimage' => get_theme_file_uri('/images/library-hero.jpg')]); // Banner block with fallback image
 new JSXBlock('genericheading'); // Generic heading block
 new JSXBlock('genericbutton'); // Generic button block
+new JSXBlock('slideshow', true); // Generic slideshow block
+new JSXBlock('slide', true); // Generic slide block
 
 
 

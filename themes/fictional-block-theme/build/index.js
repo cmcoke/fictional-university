@@ -2078,7 +2078,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // Instantiate a new object using our modules/classes
 // const mobileMenu = new MobileMenu();
-// const heroSlider = new HeroSlider();
+const heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
 // const search = new Search();
 // const myNotes = new MyNotes();
 // const like = new Like();
@@ -2097,33 +2097,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @glidejs/glide */ "./node_modules/@glidejs/glide/dist/glide.esm.js");
+ // Importing the Glide.js library to control the slider functionality.
 
 class HeroSlider {
   constructor() {
-    if (document.querySelector(".hero-slider")) {
-      // count how many slides there are
-      const dotCount = document.querySelectorAll(".hero-slider__slide").length;
+    // Select all elements with the 'hero-slider' class, which will contain individual sliders.
+    const allSlideshows = document.querySelectorAll('.hero-slider');
 
-      // Generate the HTML for the navigation dots
+    // Loop through each 'hero-slider' to apply the Glide.js functionality to each slideshow.
+    allSlideshows.forEach(function (currentSlideshow) {
+      // Count how many slides are in the current slideshow by selecting elements with the 'hero-slider__slide' class.
+      const dotCount = currentSlideshow.querySelectorAll(".hero-slider__slide").length;
+
+      // Generate the HTML for the navigation dots based on the number of slides.
       let dotHTML = "";
       for (let i = 0; i < dotCount; i++) {
+        // Create a button for each dot and set the 'data-glide-dir' attribute for Glide.js to link to the slide.
         dotHTML += `<button class="slider__bullet glide__bullet" data-glide-dir="=${i}"></button>`;
       }
 
-      // Add the dots HTML to the DOM
-      document.querySelector(".glide__bullets").insertAdjacentHTML("beforeend", dotHTML);
+      // Insert the generated dot HTML into the '.glide__bullets' container inside the current slideshow.
+      currentSlideshow.querySelector(".glide__bullets").insertAdjacentHTML("beforeend", dotHTML);
 
-      // Actually initialize the glide / slider script
-      var glide = new _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__["default"](".hero-slider", {
+      // Initialize the Glide.js slider for the current slideshow with specific settings.
+      var glide = new _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__["default"](currentSlideshow, {
         type: "carousel",
+        // Carousel type means slides will loop continuously.
         perView: 1,
-        autoplay: 3000
+        // Display one slide at a time.
+        autoplay: 3000 // Automatically move to the next slide every 3000 milliseconds (3 seconds).
       });
-      glide.mount();
-    }
+      glide.mount(); // Mounts the Glide instance, initializing the slider functionality.
+    });
   }
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeroSlider);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeroSlider); // Exports the HeroSlider class for use elsewhere in the project.
 
 /***/ }),
 
