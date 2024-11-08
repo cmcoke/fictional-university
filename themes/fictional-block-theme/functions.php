@@ -500,3 +500,18 @@ class PlaceholderBlock
 new PlaceholderBlock("eventsandblogs"); // Instantiate the PlaceholderBlock class to register the "eventsandblogs" block
 new PlaceholderBlock("header"); // Instantiate the PlaceholderBlock class to register the "header" block
 new PlaceholderBlock("footer"); // Instantiate the PlaceholderBlock class to register the "footer" block
+new PlaceholderBlock("singlepost");  // Instantiate the PlaceholderBlock class to register the "single post" block
+new PlaceholderBlock("page"); // Instantiate the PlaceholderBlock class to register the "page" block
+new PlaceholderBlock("blogindex"); // Instantiate the PlaceholderBlock class to register the "index" block
+new PlaceholderBlock("programarchive");
+new PlaceholderBlock("singleprogram");
+new PlaceholderBlock("singleprofessor");
+new PlaceholderBlock("mynotes");
+new PlaceholderBlock("archivecampus");
+new PlaceholderBlock("archiveevent");
+new PlaceholderBlock("archive");
+new PlaceholderBlock("pastevents");
+new PlaceholderBlock("search");
+new PlaceholderBlock("searchresults");
+new PlaceholderBlock("singlecampus");
+new PlaceholderBlock("singleevent");
