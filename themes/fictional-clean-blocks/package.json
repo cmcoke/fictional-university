@@ -1,0 +1,24 @@
+{
+  "name": "fictional-university-theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "wp-scripts start src/index.js",
+    "blocks": "wp-scripts start --experimental-modules",
+    "build": "run-s buildIndex buildBlocks",
+    "buildIndex": "wp-scripts build src/index.js",
+    "buildBlocks": "wp-scripts build --experimental-modules",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@glidejs/glide": "^3.4.1",
+    "@wordpress/icons": "^10.11.0",
+    "@wordpress/scripts": "*",
+    "axios": "^0.21.1",
+    "normalize.css": "^8.0.1"
+  }
+}

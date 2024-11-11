@@ -496,13 +496,13 @@ class PlaceholderBlock
   }
 }
 
-
-new PlaceholderBlock("eventsandblogs"); // Instantiate the PlaceholderBlock class to register the "eventsandblogs" block
-new PlaceholderBlock("header"); // Instantiate the PlaceholderBlock class to register the "header" block
-new PlaceholderBlock("footer"); // Instantiate the PlaceholderBlock class to register the "footer" block
-new PlaceholderBlock("singlepost");  // Instantiate the PlaceholderBlock class to register the "single post" block
-new PlaceholderBlock("page"); // Instantiate the PlaceholderBlock class to register the "page" block
-new PlaceholderBlock("blogindex"); // Instantiate the PlaceholderBlock class to register the "index" block
+// Instantiate the PlaceholderBlock class to register the following block stated below
+new PlaceholderBlock("eventsandblogs");
+new PlaceholderBlock("header");
+new PlaceholderBlock("footer");
+new PlaceholderBlock("singlepost");
+new PlaceholderBlock("page");
+new PlaceholderBlock("blogindex");
 new PlaceholderBlock("programarchive");
 new PlaceholderBlock("singleprogram");
 new PlaceholderBlock("singleprofessor");
@@ -515,3 +515,29 @@ new PlaceholderBlock("search");
 new PlaceholderBlock("searchresults");
 new PlaceholderBlock("singlecampus");
 new PlaceholderBlock("singleevent");
+
+
+
+
+/**************************************************************************************************************/
+
+/**
+ * Filter allowed block types based on the editor context (either page/post editor or Full Site Editing screen).
+ */
+
+function myallowedblocks($allowed_block_types, $editor_context)
+{
+
+  // Check if we are on a page or post editor screen
+  if (!empty($editor_context->post)) {
+    // If on a page/post editor, allow all block types
+    return $allowed_block_types;
+  }
+
+  // If not on a page/post editor, assume we're on the Full Site Editing (FSE) screen
+  // Restrict allowed blocks to only custom header and footer blocks
+  return array('ourblocktheme/header', 'ourblocktheme/footer');
+}
+
+// Uncomment the line below if you actually want to restrict which block types are allowed
+// add_filter('allowed_block_types_all', 'myallowedblocks', 10, 2); // This filter controls which blocks are available in the block editor based on the context
